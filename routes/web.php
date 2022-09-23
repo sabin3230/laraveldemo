@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/index/{name}', [UserController::class, 'index']);
+
+ Route::get('/call/{name}/{address}', [ServiceController:: class, 'index']);
+
+
+ Route::resource('user', UserController::class)->only(['index', 'create', 'delete']);
+
+ Route::group(['prefix'=> "services"], function(){
+    Route::get('/add', [UserController::class, 'create']);
+     Route::get('/edit', [UserController::class, 'edit']);
+     Route::get('/update', [UserController::class, 'update']);
+     
+});
+
